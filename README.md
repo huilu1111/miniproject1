@@ -8,7 +8,7 @@ Demonstration of a Flask application with live chat functionality.  Comments are
 # How to use
 Included is `requirements.txt` to quickly install all dependencies using the command `pip3 install -r requirements.txt`. 
 
-If you don't have pip3, please install first `sudo apt install python3-pip'.
+If you don't have pip3, please install first `sudo apt install python3-pip`.
 
 Then, using the Flask development server, simply run `python3 run.py`.  You're set!
 
