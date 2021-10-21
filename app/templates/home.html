@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script src="../static/js/socket.io.min.js"></script>
+    <script src="../static/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/webchat.js"></script>
+</head>
+
+<body style="background-color:#{{ color }};">
+<div class="container mt-3 mb-3">
+    <h1 class="text-center mb-3">{{ title }}</h1>
+    {% if is_video == True %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <video autoplay src="{{ image_file }}" controls style="height:auto"></video>
+        </div>
+    {% else %}
+        <img class="rounded img-fluid mx-auto d-block mb-3" alt="Image" src="{{ image_file }}">
+    {% endif %}
+    <p class="text-center mt-3">This page has been viewed <span id="pageViews"></span> times!</p>
+</div>
+
+{% if chat_enabled == True %}
+    <div class="container mt-5" id='submitForm'>
+        <fieldset id="toggleFieldset">
+            <div class="form-group">
+                <input type="text" class="form-control" id="myName" placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="myMessage" placeholder="Your message">
+            </div>
+            <button id="sendButton" class="btn btn-primary">Send</button>
+        </fieldset>
+    </div>
+
+
+    <div class="container mt-5" id="messagesContainer">
+        {% for message in messages %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    {% if message.name == '' %}
+                        <h5 class="card-title">Anonymous</h5>
+                    {% else %}
+                        <h5 class="card-title">{{ message.name }}</h5>
+                    {% endif %}
+                    <h6 class="card-subtitle mb-2 text-muted">{{ message.date_posted }}</h6>
+                </div>
+                <div class="card-body">
+                    {% if message.content == '' %}
+                        I forgot to add a message.
+                    {% else %}
+                        {{ message.content }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+
+    <div class="container">
+        <div class="alert alert-info center-block" role="alert">
+            <p class="text-center">Chat feature is currently disabled, check back later!</p>
+        </div>
+    </div>
+{% endif %}
+</body>
+</html>
